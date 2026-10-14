@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="v2"/>
+        <attribute name="authors" value="USER"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2026-10-03 11:08:57 PM"/>
+        <attribute name="created" value="VVNFUjtERVNLVE9QLUNFVVJQOTM7MjAyNi0xMC0wMzsxMDozMTo1MCBQTTsyNjYx"/>
+        <attribute name="edited" value="VVNFUjtERVNLVE9QLUNFVVJQOTM7MjAyNi0xMC0wMzsxMTowODo1NyBQTTsxOzI3ODE="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="board" type="String" array="True" size="10"/>
+            <declare name="currentPlayer, winner" type="String" array="False" size=""/>
+            <declare name="move, r, i, filledCount" type="Integer" array="False" size=""/>
+            <declare name="gameOver, validMove" type="Boolean" array="False" size=""/>
+            <for variable="i" start="1" end="9" direction="inc" step="1">
+                <assign variable="board[i]" expression="&quot; &quot;"/>
+            </for>
+            <assign variable="gameOver" expression="False"/>
+            <assign variable="winner" expression="&quot;None&quot;"/>
+            <assign variable="r" expression="Random(2)"/>
+            <if expression="r == 0">
+                <then>
+                    <assign variable="currentPlayer" expression="&quot;O&quot;"/>
+                </then>
+                <else>
+                    <assign variable="currentPlayer" expression="&quot;X&quot;"/>
+                </else>
+            </if>
+            <while expression="gameOver == False">
+                <output expression="board[1] &amp; &quot; | &quot; &amp; board[2] &amp; &quot; | &quot; &amp; board[3]" newline="True"/>
+                <output expression="&quot;---+---+---&quot;" newline="True"/>
+                <output expression="board[4] &amp; &quot; | &quot; &amp; board[5] &amp; &quot; | &quot; &amp; board[6]" newline="True"/>
+                <output expression="&quot;---+---+---&quot;" newline="True"/>
+                <output expression="board[7] &amp; &quot; | &quot; &amp; board[8] &amp; &quot; | &quot; &amp; board[9]" newline="True"/>
+                <if expression="currentPlayer == &quot;O&quot;">
+                    <then>
+                        <while expression="validMove == False">
+                            <output expression="&quot;Enter your move (1-9): &quot;" newline="True"/>
+                            <input variable="move"/>
+                            <if expression="move &gt;= 1 And move &lt;= 9">
+                                <then>
+                                    <if expression="board[move] == &quot; &quot;">
+                                        <then>
+                                            <assign variable="validMove" expression="True"/>
+                                        </then>
+                                        <else>
+                                            <output expression="&quot;Cell occupied! Try again.&quot;" newline="True"/>
+                                            <assign variable="validMove" expression="False"/>
+                                        </else>
+                                    </if>
+                                </then>
+                                <else>
+                                    <output expression="&quot;Invalid position! Please enter a number from 1 to 9.&quot;" newline="True"/>
+                                    <assign variable="validMove" expression="False"/>
+                                </else>
+                            </if>
+                        </while>
+                    </then>
+                    <else>
+                        <assign variable="validMove" expression="False"/>
+                        <output expression="&quot;Computer ('X') is making a move...&quot;" newline="True"/>
+                        <while expression="validMove == False">
+                            <assign variable="move" expression="Random(9) + 1"/>
+                            <if expression="board[move] == &quot; &quot;">
+                                <then>
+                                    <assign variable="validMove" expression="True"/>
+                                </then>
+                                <else>
+                                    <assign variable="validMove" expression="False"/>
+                                </else>
+                            </if>
+                        </while>
+                    </else>
+                </if>
+                <assign variable="board[move]" expression="currentPlayer"/>
+                <if expression="(board[1] != &quot; &quot; And board[1] == board[2] And board[2] == board[3]) Or (board[4] != &quot; &quot; And board[4] == board[5] And board[5] == board[6]) Or (board[7] != &quot; &quot; And board[7] == board[8] And board[8] == board[9]) Or (board[1] != &quot; &quot; And board[1] == board[4] And board[4] == board[7]) Or (board[2] != &quot; &quot; And board[2] == board[5] And board[5] == board[8]) Or (board[3] != &quot; &quot; And board[3] == board[6] And board[6] == board[9]) Or (board[1] != &quot; &quot; And board[1] == board[5] And board[5] == board[9]) Or (board[3] != &quot; &quot; And board[3] == board[5] And board[5] == board[7])">
+                    <then>
+                        <assign variable="winner" expression="currentPlayer"/>
+                        <assign variable="gameOver" expression="True"/>
+                    </then>
+                    <else>
+                        <if expression="board[1] != &quot; &quot; And board[2] != &quot; &quot; And board[3] != &quot; &quot; And board[4] != &quot; &quot; And board[5] != &quot; &quot; And board[6] != &quot; &quot; And board[7] != &quot; &quot; And board[8] != &quot; &quot; And board[9] != &quot; &quot;">
+                            <then>
+                                <assign variable="winner" expression="&quot;Draw&quot;"/>
+                                <assign variable="gameOver" expression="True"/>
+                            </then>
+                            <else>
+                                <if expression="currentPlayer == &quot;O&quot;">
+                                    <then>
+                                        <assign variable="currentPlayer" expression="&quot;X&quot;"/>
+                                    </then>
+                                    <else>
+                                        <assign variable="currentPlayer" expression="&quot;O&quot;"/>
+                                    </else>
+                                </if>
+                            </else>
+                        </if>
+                    </else>
+                </if>
+            </while>
+            <output expression="board[1] &amp; &quot; | &quot; &amp; board[2] &amp; &quot; | &quot; &amp; board[3]" newline="True"/>
+            <output expression="&quot;---+---+---&quot;" newline="True"/>
+            <output expression="board[4] &amp; &quot; | &quot; &amp; board[5] &amp; &quot; | &quot; &amp; board[6]" newline="True"/>
+            <output expression="&quot;---+---+---&quot;" newline="True"/>
+            <output expression="board[7] &amp; &quot; | &quot; &amp; board[8] &amp; &quot; | &quot; &amp; board[9]" newline="True"/>
+            <if expression="winner == &quot;O&quot;">
+                <then>
+                    <output expression="&quot;Congratulations! You (O) win!&quot;" newline="True"/>
+                </then>
+                <else>
+                    <if expression="winner == &quot;X&quot;">
+                        <then>
+                            <output expression="&quot;Game Over! Computer (X) wins!&quot;" newline="True"/>
+                        </then>
+                        <else>
+                            <output expression="&quot;It's a draw!&quot;" newline="True"/>
+                        </else>
+                    </if>
+                </else>
+            </if>
+        </body>
+    </function>
+</flowgorithm>
